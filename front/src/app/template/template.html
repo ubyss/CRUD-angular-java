@@ -26,7 +26,7 @@
       </section>
 
       }
-      <div class="overview-actions"><a class="primary-button" routerLink="/meus-cartoes">Ver meus cartões</a><a class="secondary-button" routerLink="/paginas/cadastro-cartoes">Cadastrar cartão</a></div>
+      <div class="overview-actions"><a class="primary-button" routerLink="/meus-cartoes">Ver meus cartões</a><a class="secondary-button" routerLink="/cadastro-cartoes">Cadastrar cartão</a></div>
       @if (carregando()) { <p role="status">Carregando resumo...</p> }
       @if (erro()) { <div class="form-error" role="alert">Não foi possível carregar o resumo. <button type="button" (click)="carregarCartoes()">Tentar novamente</button></div> }
     </div>
