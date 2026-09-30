@@ -1,0 +1,37 @@
+<div class="dashboard-shell">
+  <aside class="sidebar" aria-label="Menu principal">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">P</span><span>planeja<span class="brand-dot">.</span></span></div>
+    <div class="nav-label">MENU PRINCIPAL</div>
+    <nav aria-label="Navegação">
+      <a class="nav-item" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" ariaCurrentWhenActive="page"><span class="nav-icon" aria-hidden="true">▦</span> Visão geral</a>
+      <a class="nav-item" routerLink="/meus-cartoes" routerLinkActive="active" ariaCurrentWhenActive="page"><span class="nav-icon" aria-hidden="true">▭</span> Meus cartões</a>
+      <a class="nav-item" routerLink="/cadastro-cartoes" routerLinkActive="active" ariaCurrentWhenActive="page"><span class="nav-icon" aria-hidden="true">+</span> Cadastro de cartão</a>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="sidebar-note"><span class="note-icon" aria-hidden="true">✦</span><strong>Tudo em um só lugar</strong><p>Uma visão clara dos seus cartões, sempre que precisar.</p></div>
+      <div class="sidebar-footer">© {{ anoAtual }} Planeja</div>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <header class="topbar"><div class="breadcrumb">Painel <span>/</span> <strong>{{ tituloPagina }}</strong></div><div class="topbar-right"><span class="status-dot"></span> Seu espaço financeiro <span class="avatar">P</span></div></header>
+    <div class="page-content">
+      <section class="intro"><div><span class="eyebrow">SEU PAINEL</span><h1>{{ tituloPagina }}<span class="heading-dot">.</span></h1><p>{{ pagina === 'cadastro' ? 'Preencha os dados para adicionar um cartão.' : pagina === 'cartoes' ? 'Todos os seus cartões em um só lugar.' : 'Acompanhe seus cartões de um jeito simples e organizado.' }}</p></div><span class="today-label">{{ anoAtual }} <span>/</span> Dashboard</span></section>
+
+        <section class="modal cadastro-form" aria-label="Cadastro de cartão">
+      <form (submit)="salvarCartao($event)">
+        <label for="nome-cartao">Nome do cartão</label>
+        <input id="nome-cartao" type="text" maxlength="30" required placeholder="Ex.: Cartão principal" [value]="nomeFormulario()" (input)="atualizarNome($event)">
+        <label for="bandeira-cartao">Bandeira</label>
+        <select id="bandeira-cartao" required [value]="bandeiraFormulario()" (change)="atualizarBandeira($event)">
+          <option value="" disabled>Selecione uma bandeira</option>
+          @for (bandeira of bandeirasDisponiveis; track bandeira) { <option [value]="bandeira" [selected]="bandeira === bandeiraFormulario()">{{ nomeBandeira(bandeira) }}</option> }
+        </select>
+        @if (mensagemErro()) { <p class="form-error" role="alert">{{ mensagemErro() }}</p> }
+        <div class="modal-actions"><button class="secondary-button" type="button" (click)="fecharFormulario()" [disabled]="salvando()">Cancelar</button><button class="primary-button" type="submit" [disabled]="salvando() || !nomeFormulario().trim() || !bandeiraFormulario()">{{ salvando() ? 'Salvando...' : 'Cadastrar cartão' }}</button></div>
+      </form>
+        </section>
+    </div>
+  </main>
+</div>
+

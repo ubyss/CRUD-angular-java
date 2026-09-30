@@ -1,0 +1,11 @@
+node_modules/
+.angular/
+dist/
+out-tsc/
+coverage/
+target/
+back/data/
+*.log
+.env
+.env.*
+!.env.example
